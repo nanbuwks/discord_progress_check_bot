@@ -1,0 +1,17 @@
+{
+    "section1":{
+        "user":"@nanbuwks",
+	"title":"20240620能登半島遠征準備",
+	"checkinterval":1,
+        "checkurl":"https://docs.google.com/document/d/1U3L5jIB5k7wjRRLh0pGhW-PWgspVDHhQKzuM0xNee6w/export?format=txt"
+        "origin":"https://docs.google.com/document/d/1U3L5jIB5k7wjRRLh0pGhW-PWgspVDHhQKzuM0xNee6w/edit?usp=sharing"
+    },
+
+    "section2":{
+        "user":"@nanbuwks",
+	"title":"discord progress bot",
+	"checkinterval":1,
+        "checkurl":"https://github.com/nanbuwks/discord_progress_check_bot"
+        "origin":"https://github.com/nanbuwks/discord_progress_check_bot"
+    }
+}
