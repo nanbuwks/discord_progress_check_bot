@@ -23,6 +23,8 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print('ready on')
     channel = client.get_channel(CHANNEL_ID)
+    sendstr = "進捗チェックします。","https://docs.google.com/spreadsheets/d/16Viu8d7hSCVY16EFPrGod0wX4e3csOWpnNfiKK85EmA/edit?gid=0#gid=0"
+    await channel.send(sendstr)
     for key,value in node_load.items():
         dt_now = datetime.datetime.now()
         # print(value["user"])
