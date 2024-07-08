@@ -38,7 +38,7 @@ async def on_ready():
         # print(m.hexdigest())
         datestr = dt_now.strftime('%Y%m%d %H%M')
         hash = m.hexdigest()
-        if (hash == saved_load[key]["hash"]):
+        if (( key in saved_load ) and ("hash" in saved_load[key] ) and ( hash == saved_load[key]["hash"])):
             save_node = {"hash":hash,"date": saved_load[key]["date"] }
             # print(value["user"],value["title"],saved_load[key]["date"],"進捗ありません")
             sendstr = "進捗ないです",saved_load[key]["date"],value["user"],value["title"]
