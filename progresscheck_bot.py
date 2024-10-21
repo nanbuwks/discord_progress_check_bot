@@ -4,18 +4,42 @@ import json
 import requests
 import discord
 import os
+import sys
 from dotenv import load_dotenv
 import time
+import io
+import pandas as pd
+# node.json を作成する
 
+googlespreadsheet = "https://docs.google.com/spreadsheets/d/16Viu8d7hSCVY16EFPrGod0wX4e3csOWpnNfiKK85EmA/"
+downloadData = requests.get(googlespreadsheet+"export?gid=0&format=csv").content
+csvData=downloadData.decode('utf-8')
+df = pd.read_csv(io.BytesIO(downloadData),index_col='section',sep=",")
+print(df)
+#sys.exit()
+
+df.to_json('node.json',orient='index',force_ascii=False) 
+
+
+
+
+# node.json に基づいてデータロード
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 CHANNEL_ID = int(os.getenv('CHANNEL_ID'))
 node_open = open('node.json', 'r')
-saved_open = open('saved.json', 'r')
 node_load = json.load(node_open)
-saved_load = json.load(saved_open)
+saved_open=open('saved.json','r') 
+
+try:
+    saved_load = json.load(saved_open)
+except json.JSONDecodeError:
+    print(f'Error: saved_load file is not found')
+    saved_load=""
 newsavefile = ('saved.json')
 new_save_contents = {}
+
+# 進捗チェック
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 
@@ -23,7 +47,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print('ready on')
     channel = client.get_channel(CHANNEL_ID)
-    sendstr = "進捗チェックします。","https://docs.google.com/spreadsheets/d/16Viu8d7hSCVY16EFPrGod0wX4e3csOWpnNfiKK85EmA/edit?gid=0#gid=0"
+    sendstr = "進捗チェックします。",googlespreadsheet
     await channel.send(sendstr)
     for key,value in node_load.items():
         dt_now = datetime.datetime.now()
